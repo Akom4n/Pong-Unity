@@ -13,6 +13,10 @@ public class BolaController : MonoBehaviour
 
     public float limitehorizontal = 12f;
 
+    public AudioClip boing;
+
+    public Transform transformCamera;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -56,5 +60,15 @@ public class BolaController : MonoBehaviour
             SceneManager.LoadScene(0);
         }
         
+    }
+
+    //Criando o meu evento de colisão
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Falando oi para com quem eu colidi
+        Debug.Log("Oi");
+        AudioSource.PlayClipAtPoint(boing, transformCamera.position); 
+        //AudioSource.PlayClipAtPoint(boing, transform.position);
     }
 }
