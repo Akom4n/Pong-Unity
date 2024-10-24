@@ -54,6 +54,13 @@ public class RaqueteController : MonoBehaviour
             }
             else
             {
+                //Colocando ele no automatico
+                if (Input.GetKey(KeyCode.Return))
+                {
+                    automatico = true;
+                }
+
+
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
                     meuY = meuY + deltavelocidade;
@@ -67,7 +74,17 @@ public class RaqueteController : MonoBehaviour
         }
         else
         {
+
+            //Tirando player do automatico, checando com os inputs para isso
+             
+            if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+            {
+                automatico = false;
+            }
+
+            
             meuY = Mathf.Lerp(meuY, transformBola.position.y, 0.05f);
+
         }
 
 
