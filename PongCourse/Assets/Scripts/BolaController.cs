@@ -17,42 +17,60 @@ public class BolaController : MonoBehaviour
 
     public Transform transformCamera;
 
+    public float delay = 2f;
+
+    public bool jogoIniciado;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-
-        int direcao = UnityEngine.Random.Range(0, 4);
-
-
-        if(direcao == 0)
-        {
-           minhaVelocidade.x = velocidade;
-           minhaVelocidade.y = velocidade;
-        }
-        if(direcao == 1)
-        {
-           minhaVelocidade.x = -velocidade;
-           minhaVelocidade.y = velocidade;
-        }
-        if(direcao == 2)
-        {
-           minhaVelocidade.x = -velocidade;
-           minhaVelocidade.y = -velocidade;
-        }
-        else
-        {
-           minhaVelocidade.x = -velocidade;
-           minhaVelocidade.y = velocidade;
-        }
-
-        meuRB.linearVelocity = minhaVelocidade;
         
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //Iniciando a bola com um delay[
+
+        //Diminuindo o valor do delay
+        delay = delay - Time.deltaTime;
+
+
+        // Checando se chegou em 0 para a bola sair e iniciar o jogo
+        if (delay <= 0 && jogoIniciado == false)
+        {
+            jogoIniciado = true;
+
+
+            int direcao = UnityEngine.Random.Range(0, 4);
+
+
+            if (direcao == 0)
+            {
+                minhaVelocidade.x = velocidade;
+                minhaVelocidade.y = velocidade;
+            }
+            if (direcao == 1)
+            {
+                minhaVelocidade.x = -velocidade;
+                minhaVelocidade.y = velocidade;
+            }
+            if (direcao == 2)
+            {
+                minhaVelocidade.x = -velocidade;
+                minhaVelocidade.y = -velocidade;
+            }
+            else
+            {
+                minhaVelocidade.x = -velocidade;
+                minhaVelocidade.y = velocidade;
+            }
+
+            meuRB.linearVelocity = minhaVelocidade;
+        }
+
+        
         //Checando se a bola saiu da tela
         if (transform.position.x < -limitehorizontal || transform.position.x > limitehorizontal)
         {
@@ -66,9 +84,6 @@ public class BolaController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Falando oi para com quem eu colidi
-        Debug.Log("Oi");
-        AudioSource.PlayClipAtPoint(boing, transformCamera.position); 
-        //AudioSource.PlayClipAtPoint(boing, transform.position);
+        AudioSource.PlayClipAtPoint(boing, transformCamera.position);
     }
 }
